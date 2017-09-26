@@ -3,9 +3,9 @@
 
 ## **Introdução**
 
-A linguagem de programação SNOBOL 4 (StriNg Oriented symBOlic Language number 4), originalmente e não oficialmente chamada de  **SEXI**  e  **SCL7,** é a quarta e última encarnação de uma série de linguagens de programação específicas destinadas à manipulação de sequências de caracteres (strings). É baseada nos princípios de correspondência de padrões (pattern matching) para solucionar problemas de manipulação de seqüencias. Foi desenvolvida entre 1962 e 1967 nos Laboratórios Bell, da AT&T, por D. J. Farber, R. E. Griswold, e F. P. Polensky.
+A linguagem de programação SNOBOL 4 (StriNg Oriented symBOlic Language number 4), originalmente e não oficialmente chamada de  **SEXI**  e  **SCL7,** é a quarta e última encarnação de uma série de linguagens de programação específicas destinadas à manipulação de sequências de caracteres (strings). É baseada nos princípios de casamento de padrões (pattern matching) para solucionar problemas de manipulação de seqüencias. Foi desenvolvida entre 1962 e 1967 nos Laboratórios Bell, da AT&amp;T, por D. J. Farber, R. E. Griswold, e F. P. Polensky.
 
-Seu principal diferencial com relação às outras linguagens de seu tempo foi um novo tipo de dado chamado modelo ou "first-class data type" cujos valores podiam ser manipulados de todas as formas permitidas para todos os tipos diferentes de dados da linguagem, como se fosse um tipo de dado genérico, além disso disponibilizou operadores para concatenação e alteração de modelos. As sequências de caracteres geradas durante a execução podem ser tratadas como programas e executadas. Os modelos podem ser tão simples quanto uma sequência de texto do tipo "ABCD" ou tão complexos como uma nova gramática de uma nova linguagem de programação. Suas operações básicas são formação de uma string, busca de padrões e substituição de strings.
+Seu principal diferencial com relação às outras linguagens de seu tempo foi um novo tipo de dado chamado modelo ou **_first-class data type_**, cujos valores podiam ser manipulados de todas as formas permitidas para todos os tipos diferentes de dados da linguagem, como se fosse um tipo de dado genérico, além disso disponibilizou operadores para concatenação e alteração de modelos. As sequências de caracteres geradas durante a execução podem ser tratadas como programas e executadas. Os modelos podem ser tão simples quanto uma sequência de texto do tipo **ABCD** ou tão complexos como uma nova gramática de uma nova linguagem de programação. Suas operações básicas são formação de uma string, busca de padrões e substituição de strings.
 
 Foi popularmente utilizado nos anos 70 e 80 como linguagem de manipulação de textos, porém foi substituído por linguagens novas e mais eficientes como o Awk e o Perl.
 
@@ -13,7 +13,7 @@ Foi popularmente utilizado nos anos 70 e 80 como linguagem de manipulação de t
 
 Foi desenvolvida entre 1962 e 1967 nos Laboratórios Bell, da AT&amp;T, por D. J. Farber, R. E. Griswold, e F. P. Polensky. Teve influências das seguintes linguagens:
 
-- **COMIT** , que foi a primeira linguagem específica para processamento de cadeias de caracteres e de correspondência de padrões, projetada para aplicações em tradução de linguagem natural, onde um programa era um conjunto de regras, cada uma com um padrão, uma substituição e outra regra.
+- **COMIT** , que foi a primeira linguagem específica para processamento de cadeias de caracteres e de casamento de padrões, projetada para aplicações em tradução de linguagem natural, onde um programa era um conjunto de regras, cada uma com um padrão, uma substituição e outra regra.
 - **MARKOV** , um algoritmo de Markov é um sistema de reescrita de seqüência de caracteres que usa regras semelhantes a gramática para operar em cadeias de símbolos. Tem poder equivalente ao de uma máquina de Turing e suas cadeias podem representar qualquer expressão matemática a partir da sua notação simples.
 - **SCL(Symbolic Communication Language)**, que foi desenvolvida para manipulação de símbolos e inspirou o pattern matching do **SNOBOL4**.
 - Além disso, pode ter tido influência também o compilador **SHADOW** que era dirigido por sintaxe. Este compilador antecipou parte da sistemática de padrões em SNOBOL e ICES. Foi utilizado por David J. Farber nos experimentos de padrões iniciais, então pode ter tido influência no SNOBOL.
@@ -46,26 +46,26 @@ Quando um fim de arquivo é lido, a variável INPUT emite um sinal de falha. A e
 
 
 - Interpretada:
-  - A maioria de suas implementações executam instruções diretamente, sem antes compilar um programa em instruções de linguagem de máquina. O interpretador executa o programa diretamente, traduzindo cada declaração para uma sequência de uma ou mais sub-rotinas já compiladas em código de máquina. No SNOBOL4 enquanto seu programa está sendo executado, todo o compilador SNOBOL4 está apenas a uma chamada de função. Um programa SNOBOL4 não passa de uma série de caracteres. As funções EVAL e CODE permitem que você forneça o compilador com cadeias de caracteres dentro do próprio programa.
+  - A maioria de suas implementações executam instruções diretamente, sem antes compilar um programa em instruções de linguagem de máquina. O interpretador executa o programa diretamente, traduzindo cada declaração para uma sequência de uma ou mais sub-rotinas já compiladas em código de máquina. No SNOBOL4 enquanto seu programa está sendo executado, todo o compilador SNOBOL4 está apenas a uma chamada de função. Um programa SNOBOL4 não passa de uma série de caracteres.
 - Dinâmica:
   - As variáveis não precisam ser pré-declaradas e seus valores podem mudar os tipos com facilidade. No exemplo abaixo, J começa como uma string, mas depois é alterado para que contenha um número inteiro; 42 é impresso.
-    - J = "ABC"
+    - J = ABC
     - A = 20
-    - B = "22"
+    - B = 22
     - J = A + B
     - OUTPUT = J
 
-## **Pattern Matching (Correspondência de Padrões)**
+## **Pattern Matching (Casamento de Padrões)**
 
-A correspondência de padrões examina uma sequência de strings para alguma combinação de caracteres, chamado de "padrão". O processo de correspondência pode ser muito simples ou extremamente complexo. Por exemplo:
+A casamento de padrões examina uma sequência de strings para alguma combinação de caracteres, chamado de padrão. O processo de casamento pode ser muito simples ou extremamente complexo. Por exemplo:
 
-O assunto contém vários nomes de cores. O padrão é a string "BLUE". A sequência do assunto contém a palavra "BLUE"?
+O assunto contém vários nomes de cores. O padrão é a string **BLUE**. A sequência do assunto contém a palavra **BLUE**?
 
-Um padrão de correspondência requer uma cadeia de strings e um padrão. A string é o primeiro elemento de declaração após o campo de label (se houver). O padrão aparece em seguida, separado da string por espaço em branco. Se STRING é a sequência de caracteres a ser examinada, e PATTERN é o padrão, parece assim:
+Um padrão de casamento requer uma cadeia de strings e um padrão. A string é o primeiro elemento de declaração após o campo de label (se houver). O padrão aparece em seguida, separado da string por espaço em branco. Se STRING é a sequência de caracteres a ser examinada, e PATTERN é o padrão, parece assim:
 
         Label STRING PATTERN
 
-A correspondência de padrão ocorre se o padrão for encontrado na sequência da string; caso contrário, ele falha. Esse sucesso ou falha pode ser testado no campo GOTO:
+A casamento de padrão ocorre se o padrão for encontrado na sequência da string; caso contrário, ele falha. Esse sucesso ou falha pode ser testado no campo GOTO:
 
         label STRING PATTERN :S(label1) F(label2)
 
@@ -82,33 +82,33 @@ A transferência de controle é realizada pelo comando GOTO. Ele interrompe a ex
 ![Exemplo de Controle de Fluxo Snobol4](https://github.com/vinivst/EDL/blob/master/images/exemplo_controle_de_fluxo_snobol4.png)
 
 
-No exemplo, a transferência "1" ocorre apenas se houver falha na atribuição da variável 'NUMERO', caso contrário, a execução prossegue até o desvio incondicional "2" onde retorna a execução do programa para a linha referenciada "TOPO".
+No exemplo, a transferência **1**. ocorre apenas se houver falha na atribuição da variável 'NUMERO', caso contrário, a execução prossegue até o desvio incondicional **2**. onde retorna a execução do programa para a linha referenciada **TOPO**.
 
 ## **Exemplos de Códigos Representativos vs Python**
 
 #### **Caso 1: Pattern Matching**
 
-#### **Objetivo: Procurar por correspondência de padrões**
+#### **Objetivo: Procurar por casamento de padrões**
 
 #### **Snobol4:**
 
         PATTERN = ('TRUTURAS DE LINGUA') . MATCH
 
         STRING = 'ESTRUTURAS DE LINGUAGENS'
-        
+
         STRING PATTERN
 
         OUPUT = MATCH
 
         END
 
-Primeiro declaramos o padrão a ser seguido em PATTERN e guardamos a ocorrência desse padrão em MATCH através de . MATCH. Depois entramos com uma string e a definimos como 'ESTRUTURAS DE LINGUAGENS'. Feito isso, checamos através da sintaxe da linguagem SNOBOL4 com STRING PADRÃO, no caso B PATTERN, se a string em questão tem correspondência com o padrão definido. Por último apenas retornamos o valor de match na variável OUTPUT, que é especial do programa para retornar valores e exibi-los.
+Primeiro declaramos o padrão a ser seguido em PATTERN e guardamos a ocorrência desse padrão em MATCH através de . MATCH. Depois entramos com uma string e a definimos como 'ESTRUTURAS DE LINGUAGENS'. Feito isso, checamos através da sintaxe da linguagem SNOBOL4 com STRING PADRÃO, no caso B PATTERN, se a string em questão tem casamento com o padrão definido. Por último apenas retornamos o valor de match na variável OUTPUT, que é especial do programa para retornar valores e exibi-los.
 
 #### **Python:**
 
         pattern= 'TRUTURAS DE LINGUA'
 
-        string = "ESTRUTURAS DE LINGUAGENS"
+        string = **ESTRUTURAS DE LINGUAGENS**
 
         if pattern in string:
 
@@ -136,7 +136,7 @@ O que for entrado como dado através do input é guardado na variável n, após 
 
     while True:
 
-    n = raw_input()
+    n = raw\_input()
 
     if n.strip() == 'exit':
 
@@ -146,7 +146,7 @@ O que for entrado como dado através do input é guardado na variável n, após 
 
 #### **Readability:**
 
-Python possui uma melhor Readability pois fica mais transparente à quem estiver lendo o que está sendo feito, pois tanto no primeiro caso onde temos a chamada do método "in" (em) que é mais natural, como se fosse uma simples leitura tanto no segundo, pois a utilização do controle de fluxo e da função DIFFER não são tão naturais e óbvias de se entender quanto um loop com while true/break no python. Reforça-se esse argumento pois em Snobol4 o padrão de STRING PATTERN pode, em um primeiro momento, confundir quem está lendo sobre o que está acontecendo.
+Python possui uma melhor Readability pois fica mais transparente à quem estiver lendo o que está sendo feito, pois tanto no primeiro caso onde temos a chamada do método **in** (em) que é mais natural, como se fosse uma simples leitura tanto no segundo, pois a utilização do controle de fluxo e da função DIFFER não são tão naturais e óbvias de se entender quanto um loop com while true/break no python. Reforça-se esse argumento pois em Snobol4 o padrão de STRING PATTERN pode, em um primeiro momento, confundir quem está lendo sobre o que está acontecendo.
 
 #### **Writability:**
 
@@ -158,11 +158,11 @@ Se uma linguagem exige muito código para expressar uma abstração, ela é meno
 
 ## **Conclusão**
 
-Por ser uma linguagem muito antiga, carece de suporte apropriado, seja da própria linguagem ou da comunidade (???). Apesar disso, SNOBOL4 ainda possui vantagens quando o quesito é o tratamento de strings, como por exemplo tipagem dinâmica que fora abordada anteriormente. Foi uma linguagem tão revolucionária na época que influenciou várias linguagens em gerações posteriores e ainda hoje, as linguagens mais modernas possuem algum traço de seu principal diferencial, que foi o pattern matching (correspondência de padrões).
+Por ser uma linguagem muito antiga, carece de suporte apropriado, seja da própria linguagem ou da comunidade (???). Apesar disso, SNOBOL4 ainda possui vantagens quando o quesito é o tratamento de strings, como por exemplo tipagem dinâmica que fora abordada anteriormente. Foi uma linguagem tão revolucionária na época que influenciou várias linguagens em gerações posteriores e ainda hoje, as linguagens mais modernas possuem algum traço de seu principal diferencial, que foi o pattern matching (casamento de padrões).
 
 ## **Bibliografia**
 
-- Slides: https://github.com/LeonardoSillas/EDL/blob/master/slides/edl-01.pdf
+- Slides: https://github.com/vinivst/EDL/blob/master/slides/edl-01.pdf
 - Wikipedia:
   - [https://en.wikipedia.org/wiki/SNOBOL](https://en.wikipedia.org/wiki/SNOBOL)
   - [https://en.wikipedia.org/wiki/Icon\_(programming\_language)](https://en.wikipedia.org/wiki/Icon_(programming_language))

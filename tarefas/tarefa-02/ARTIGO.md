@@ -108,7 +108,7 @@ Primeiro declaramos o padrão a ser seguido em PATTERN e guardamos a ocorrência
 
         pattern= 'TRUTURAS DE LINGUA'
 
-        string = **ESTRUTURAS DE LINGUAGENS**
+        string = 'ESTRUTURAS DE LINGUAGENS'
 
         if pattern in string:
 

@@ -1,0 +1,4 @@
+Aluno: Leonardo Sillas Oliveira
+MAtricula:201220425311
+
+Regra do jogo: Passar pelo labirinto sem encostar nas paredes de fogo!

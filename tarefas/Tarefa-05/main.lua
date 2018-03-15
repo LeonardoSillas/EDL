@@ -1,11 +1,15 @@
 jogador = {}
+buracox = {}
+buracoy = {}
 
 function love.load()
 	--SOM
 	musica = love.audio.newSource ("Musicas/bigh.mp3")
 	venceu = love.audio.newSource ("Musicas/venceu.mp3")
+	buracon = love.audio.newSource ("Musicas/buracon.mp3")
 	passoubarreira = love.audio.newSource("Musicas/passoubarreira.mp3")
 	musica:setVolume(0.8)
+	buracon:setVolume(1)
 	musica:setPitch(1.0)
 	musica:play()
 	passoubarreira:setPitch(3.0)
@@ -16,17 +20,29 @@ function love.load()
 	background = love.graphics.newImage("imagens/background.png")
 	love.window.setMode(500,500)
 
-	jogador.x = 10
 	--Tarefa 05
 	--Nome: jogador.x, jogador.y
 	--Propriedade: valor de x e y, do objeto jogador
 	--Binding Time: Compilação
 	--Explicação: será a valor inicial da variável assim que o programa for executado.
+
+	--Nome: jogador.width, jogador.height
+	--Propriedade: variáveis usadas para definir o tamanho do "boneco"
+	--Binding Time: Compilação
+	--Explicação: será a tamanho estático do boneco assim que o programa for executado.
+
+	jogador.x = 10
 	jogador.y = 10
 	jogador.width = 10
 	jogador.height = 10
 	boneco = love.graphics.newImage("imagens/Boneco.png")
+	quantos = 0
 
+end
+
+function geraquantos()
+
+		quantos = math.random(1,2)*((jogador.x-10)/40)
 end
 
 function love.update(dt)
@@ -45,10 +61,13 @@ function love.update(dt)
 		musica:pause()
 		love.timer.sleep(3)
 
+
 	--VOLTA PRO COMEÇO DO JOGO
 		jogador.x = 10
 		jogador.y = 10
 		musica:play()
+		geraquantos()
+		geraburacos(0)
 	end
 
 	--MOVIMENTOS PARA A DIREITA
@@ -60,6 +79,14 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.1)
 				passoubarreira:play()
+				geraquantos()
+				geraburacos(quantos)
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -72,6 +99,25 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.2)
 				passoubarreira:play()
+				geraquantos()
+
+				-- Tarefa 05
+				-- Nome: "()"
+				-- Propriedade: Semântica
+				-- Binding time: Compilação
+				-- Explicação: Usado para indicar os valores que serão passados para a execução da função no caso 'quantos'.
+				geraburacos(quantos)
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
+			-- Tarefa 05
+			-- Nome: else
+			-- Propriedade: Semântica
+			-- Binding time: Design
+			-- Explicação: assim como o if, já possui suas propriedades definidas no design da linguagem.
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -84,6 +130,14 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.3)
 				passoubarreira:play()
+				geraquantos()
+				geraburacos(quantos)
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -96,6 +150,14 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.4)
 				passoubarreira:play()
+				geraquantos()
+				geraburacos(quantos)
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -108,6 +170,14 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.5)
 				passoubarreira:play()
+				geraquantos()
+				geraburacos(quantos)
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -120,6 +190,14 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.6)
 				passoubarreira:play()
+				geraquantos()
+				geraburacos(quantos)
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end					
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -132,6 +210,8 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.7)
 				passoubarreira:play()
+				geraquantos()
+				geraburacos(quantos)
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -139,6 +219,13 @@ function love.update(dt)
 			end
 		else
 			jogador.x = jogador.x + 5
+			if colisaoburaco() then
+				buracon:play()
+				love.timer.sleep(3)
+				jogador.x = 10
+				jogador.y = 10
+			end
+
 		end
 
 	end
@@ -150,6 +237,12 @@ function love.update(dt)
 
 			if (jogador.y > 450) then
 				jogador.x = jogador.x - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -160,6 +253,12 @@ function love.update(dt)
 
 			if (jogador.y < 40) then
 				jogador.x = jogador.x - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -170,6 +269,12 @@ function love.update(dt)
 
 			if (jogador.y > 200) and (jogador.y < 250) then
 				jogador.x = jogador.x - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -180,6 +285,12 @@ function love.update(dt)
 
 			if (jogador.y > 30) and (jogador.y < 80) then
 				jogador.x = jogador.x - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -190,6 +301,12 @@ function love.update(dt)
 
 			if (jogador.y > 455) then
 				jogador.x = jogador.x - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -200,6 +317,12 @@ function love.update(dt)
 
 			if (jogador.y < 45) then
 				jogador.x = jogador.x - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -210,6 +333,12 @@ function love.update(dt)
 
 			if (jogador.y > 35) and (jogador.y < 85) then
 				jogador.x = jogador.x - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			else
 				jogador.x = 10
 				jogador.y = 10
@@ -217,6 +346,12 @@ function love.update(dt)
 			end
 		else
 			jogador.x = jogador.x - 5
+			if colisaoburaco() then
+				buracon:play()
+				love.timer.sleep(3)
+				jogador.x = 10
+				jogador.y = 10
+			end
 		end
 	end
 
@@ -232,6 +367,12 @@ function love.update(dt)
 
 			else
 				jogador.y = jogador.y - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		--TERCEIRA BARREIRA
 		elseif (jogador.y == 200) then
@@ -242,6 +383,12 @@ function love.update(dt)
 				fogo:play()
 			else
 				jogador.y = jogador.y - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		--QUARTRA BARREIRA
 		elseif (jogador.y == 30) then
@@ -252,6 +399,12 @@ function love.update(dt)
 				fogo:play()
 			else
 				jogador.y = jogador.y - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		--QUINTA BARREIRA
 		elseif (jogador.y == 455) then
@@ -262,6 +415,12 @@ function love.update(dt)
 				fogo:play()
 			else
 				jogador.y = jogador.y - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		--SETIMA BARREIRA
 		elseif (jogador.y == 35) then
@@ -272,9 +431,21 @@ function love.update(dt)
 				fogo:play()
 			else
 				jogador.y = jogador.y - 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		else
 			jogador.y = jogador.y - 5
+			if colisaoburaco() then
+				buracon:play()	
+				love.timer.sleep(3)
+				jogador.x = 10
+				jogador.y = 10
+			end
 		end
 	end
 
@@ -290,6 +461,12 @@ function love.update(dt)
 
 			else
 				jogador.y = jogador.y + 5
+				if colisaoburaco() then
+					buracon:play()	
+					love.timer.sleep(3)	
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		--TERCEIRA BARREIRA
 		elseif (jogador.y == 250) then
@@ -300,6 +477,12 @@ function love.update(dt)
 				fogo:play()
 			else
 				jogador.y = jogador.y + 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		--QUARTRA BARREIRA
 		elseif (jogador.y == 80) then
@@ -310,6 +493,12 @@ function love.update(dt)
 				fogo:play()
 			else
 				jogador.y = jogador.y + 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		--SEXTA BARREIRA
 		elseif (jogador.y == 35) then
@@ -320,6 +509,12 @@ function love.update(dt)
 				fogo:play()
 			else
 				jogador.y = jogador.y + 5
+				if colisaoburaco() then
+					buracon:play()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		--SETIMA BARREIRA
 		elseif (jogador.y == 75) then
@@ -330,17 +525,76 @@ function love.update(dt)
 				fogo:play()
 			else
 				jogador.y = jogador.y + 5
+				if colisaoburaco() then
+					buracon:play()
+					musica:pause()
+					love.timer.sleep(3)
+					jogador.x = 10
+					jogador.y = 10
+				end
 			end
 		else
 			jogador.y = jogador.y + 5
+			if colisaoburaco() then
+				buracon:play()
+				love.timer.sleep(3)
+				jogador.x = 10
+				jogador.y = 10
+			end
 		end
 
 	end	
 end
 
-function love.draw()
+	function mostraburaco(buracox,buracoy)
 
+		love.graphics.setColor(0,0,0)
+		love.graphics.circle("fill",buracox,buracoy,10)
+		love.graphics.setColor(0,0,255)
+		love.graphics.circle("fill",buracox,buracoy,8)
+		love.graphics.setColor(0,0,0)
+		love.graphics.circle("fill",buracox,buracoy,6)
+		love.graphics.setColor(0,0,255)
+		love.graphics.circle("fill",buracox,buracoy,4)
+		love.graphics.setColor(0,0,0)
+		love.graphics.circle("fill",buracox,buracoy,2)
+	end
+
+	function geraburacos(quantos)
+
+		-- Tarefa 05
+		-- Nome: 'i'
+		-- Propriedade: Variável local
+		-- Binding time: execução
+		-- Explicação: Por ser uma variável local, possui suas propriedades (endereço) alocado em tempo de execução.
+		local i = 0
+		while i < quantos do
+			buracox[i] = math.random(jogador.x +5, jogador.x + 100) 
+			buracoy[i] = math.random(10, love.graphics.getHeight()-15)
+			i = i+1;
+		end
+	end
+
+	function colisaoburaco()
+		local i = 0
+		while i < quantos do
+			if  (jogador.x >= buracox[i]-15) and (jogador.x <= buracox[i]+5)
+			and (jogador.y>= buracoy[i]-15) and (jogador.y <= buracoy[i]+5) then
+
+
+				return true
+			else
+				end
+			i= i+1;
+		end
+		i= i+1;
+	end 
+
+
+function love.draw()
+	local show = 0
 	--FUNDO DA TELA
+
 	love.graphics.setColor(0,0,100)
 	love.graphics.draw(background,10,10)
 	
@@ -376,4 +630,16 @@ function love.draw()
 	love.graphics.draw(chegada,love.graphics.getWidth( )-50, love.graphics.getHeight( )- 57 )
 	--BONECO
 	love.graphics.draw(boneco,jogador.x,jogador.y)
+
+	--BURACOS
+		-- Tarefa 05
+		-- Nome: 'i'
+		-- Propriedade: Variável local
+		-- Binding time: execução
+		-- Explicação: Por ser uma variável local, possui suas propriedades (endereço) alocado em tempo de execução.
+	while show < quantos do
+	mostraburaco(buracox[show],buracoy[show])
+	show = show+1;
+	end
+
 end

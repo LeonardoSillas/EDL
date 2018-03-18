@@ -10,8 +10,8 @@ jogo = { nome = "Labirinto de fogo" }
 jogador = {}
 -- Tarefa-06
 -- Variável: buracox, buracoy
--- Tipo: Dicionário
--- Observação: É considerado um dicionário, pois possuem campos criados e populados em tempo de execução.
+-- Tipo: Array
+-- Observação: Array que futuramente será usado como x e y das posições dos buracos.
 buracox = {}
 buracoy = {}
 
@@ -564,15 +564,14 @@ end
 		-- Tarefa-06
 		-- Variável: entrouburaco
 		-- Tipo: Enum
-		-- Observação: Assume o papel de "enumerador", por apresentar uma quantidade limitada e fixa de valores. 
+		-- Observação: Assume o papel de "enumerador", por apresentar uma quantidade limitada e fixa de valores. (Usado somente para simular o ENUM em lua, mesmo sem necessidade)
 		entrouburaco = "true"
 		local i = 0
 		while i < quantos do
 			if  (jogador.x >= buracox[i]-15) and (jogador.x <= buracox[i]+5)
 			and (jogador.y>= buracoy[i]-15) and (jogador.y <= buracoy[i]+5) then
 				return entrouburaco
-			else
-				end
+			end
 			i= i+1;
 		end
 		i= i+1;

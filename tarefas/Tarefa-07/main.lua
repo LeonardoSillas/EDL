@@ -3,7 +3,7 @@ jogador = {}
 
 -- Tarefa-07
 -- Momento: Criação do array dinâmico
--- O array será populado randomicamente para informar as coordenadas (x,y) dos buracos, possui escopo global e existirá até o fechamento do jogo.
+-- O array será populado com o (table.insert) para informar as coordenadas (x,y) dos buracos, possui escopo global e existirá até o fechamento do jogo.
 buracox = {}
 buracoy = {}
 
@@ -35,15 +35,12 @@ function love.load()
 
 end
 function limpaburacos()
-
 	-- Tarefa-07
-	-- Momento: Reinciar Valores de posicionamento
-	-- O array será populado com o valor 0, considerando esse o valor inicial de um (float\int).
-	local i = 0
-	while i <= #buracox do
-		buracox[i] = 0
-		buracoy[i] = 0
-		i = i+1
+	-- Momento: Removendo os objetos do array 
+	-- Através do table.remove, do fim para o começo dos arrays, sendo utilizada na chamada da função "limpaburacos".
+	for i = #buracox, 1, -1 do
+		table.remove(buracox,i)
+		table.remove(buracoy,i)
 	end
 end
 
@@ -69,11 +66,7 @@ function love.update(dt)
 		jogador.y = 10
 		musica:play()
 		geraquantos()
-		-- Tarefa-07
-		-- Momento: Criação do array dinâmico
-		-- O array será populado randomicamente para informar as coordenadas (x,y) dos buracos, possui escopo global e existirá até o fechamento do jogo.
 		limpaburacos()
-		geraburacos(0)
 	end
 
 
@@ -86,6 +79,7 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.1)
 				passoubarreira:play()
+				limpaburacos()
 				geraquantos()
 				geraburacos(quantos)
 				if colisaoburaco() then
@@ -99,6 +93,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--SEGUNDA BARREIRA
 		elseif (jogador.x == 150) then
@@ -107,6 +102,7 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.2)
 				passoubarreira:play()
+				limpaburacos()
 				geraquantos()
 				geraburacos(quantos)
 				if colisaoburaco() then
@@ -120,6 +116,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--TERCEIRA BARREIRA
 		elseif (jogador.x == 200) then
@@ -128,6 +125,7 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.3)
 				passoubarreira:play()
+				limpaburacos()
 				geraquantos()
 				geraburacos(quantos)
 				if colisaoburaco() then
@@ -141,6 +139,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--QUARTRA BARREIRA
 		elseif (jogador.x == 250) then
@@ -149,6 +148,7 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.4)
 				passoubarreira:play()
+				limpaburacos()
 				geraquantos()
 				geraburacos(quantos)
 				if colisaoburaco() then
@@ -162,6 +162,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--QUINTA BARREIRA
 		elseif (jogador.x == 300) then
@@ -170,6 +171,7 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.5)
 				passoubarreira:play()
+				limpaburacos()
 				geraquantos()
 				geraburacos(quantos)
 				if colisaoburaco() then
@@ -183,6 +185,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--SEXTA BARREIRA
 		elseif (jogador.x == 350) then
@@ -191,6 +194,7 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.6)
 				passoubarreira:play()
+				limpaburacos()
 				geraquantos()
 				geraburacos(quantos)
 				if colisaoburaco() then
@@ -204,6 +208,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--SETIMA BARREIRA
 		elseif (jogador.x == 400) then
@@ -212,17 +217,20 @@ function love.update(dt)
 				jogador.x = jogador.x + 5
 				passoubarreira:setVolume(0.7)
 				passoubarreira:play()
+				limpaburacos()
 				geraquantos()
 				geraburacos(quantos)
 			else
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		else
 			jogador.x = jogador.x + 5
 			if colisaoburaco() then
 				buracon:play()
+				limpaburacos()
 				love.timer.sleep(3)
 				limpaburacos()
 				jogador.x = 10
@@ -251,6 +259,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--SEGUNDA BARREIRA
 		elseif (jogador.x == 170) then
@@ -268,6 +277,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--TERCEIRA BARREIRA
 		elseif (jogador.x == 220) then
@@ -285,6 +295,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--QUARTRA BARREIRA
 		elseif (jogador.x == 270) then
@@ -302,6 +313,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--QUINTA BARREIRA
 		elseif (jogador.x == 320) then
@@ -319,6 +331,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--SEXTA BARREIRA
 		elseif (jogador.x == 370) then
@@ -336,6 +349,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		--SETIMA BARREIRA
 		elseif (jogador.x == 420) then
@@ -353,6 +367,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			end
 		else
 			jogador.x = jogador.x - 5
@@ -375,6 +390,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 
 			else
 				jogador.y = jogador.y - 5
@@ -393,6 +409,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			else
 				jogador.y = jogador.y - 5
 				if colisaoburaco() then
@@ -410,6 +427,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			else
 				jogador.y = jogador.y - 5
 				if colisaoburaco() then
@@ -427,6 +445,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			else
 				jogador.y = jogador.y - 5
 				if colisaoburaco() then
@@ -444,6 +463,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			else
 				jogador.y = jogador.y - 5
 				if colisaoburaco() then
@@ -475,6 +495,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 
 			else
 				jogador.y = jogador.y + 5
@@ -493,6 +514,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			else
 				jogador.y = jogador.y + 5
 				if colisaoburaco() then
@@ -510,6 +532,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			else
 				jogador.y = jogador.y + 5
 				if colisaoburaco() then
@@ -527,6 +550,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			else
 				jogador.y = jogador.y + 5
 				if colisaoburaco() then
@@ -544,6 +568,7 @@ function love.update(dt)
 				jogador.x = 10
 				jogador.y = 10
 				fogo:play()
+				limpaburacos()
 			else
 				jogador.y = jogador.y + 5
 				if colisaoburaco() then
@@ -588,32 +613,29 @@ end
 		while i < quantos do
 			-- Tarefa-07
 			-- Momento: Criação de objetos no array
-			-- Criados dinamicamente nos arrays buracox,buracoy
-			-- possuem mesmo tamanho, porém sempre randómicos, por dependerem da variável dinâmica "quantos"
-			-- são criados na chamada da função geraburacos e recalculados sempre que ela for chamada.
-			buracox[i] = math.random(jogador.x +5, jogador.x + 100) 
-			buracoy[i] = math.random(10, love.graphics.getHeight()-15)
+			-- Criados dinamicamente nos arrays buracox,buracoy, possuem mesmo tamanho(quantos) pois estão dentro do mesmo loop,
+			-- são criados através do table.insert inserindo um valor randomico cada um dentro de sua regra informada abaixo.
+			table.insert(buracox, math.random(jogador.x +5, jogador.x + 100))
+			table.insert(buracoy, math.random(10, love.graphics.getHeight()-15))
 			i = i+1;
 		end
 	end
 
 	function colisaoburaco()
 		entrouburaco = "true"
-		local i = 0
-		while i < quantos do
-			if  (jogador.x >= buracox[i]-15) and (jogador.x <= buracox[i]+5)
-			and (jogador.y>= buracoy[i]-15) and (jogador.y <= buracoy[i]+5) then
+		for i = #buracox, 1, -1 do
+			if  (jogador.x >= (buracox[i]-15)) and 
+				(jogador.x <= (buracox[i]+5)) and 
+				(jogador.y >= (buracoy[i]-15)) and 
+				(jogador.y <= (buracoy[i]+5)) then
 				return entrouburaco
-			else
-				end
-			i= i+1;
+			end
 		end
-		i= i+1;
 	end 
 
 
 function love.draw()
-	local show = 0
+	local i = 0
 	--FUNDO DA TELA
 
 	love.graphics.setColor(0,0,100)
@@ -657,9 +679,8 @@ function love.draw()
 	love.graphics.print(jogo.nome,10,10)
 
 	--BURACOS
-	while show < quantos do
-	mostraburaco(buracox[show],buracoy[show])
-	show = show+1;
+	for i = #buracox, 1, -1 do
+	mostraburaco(buracox[i],buracoy[i])
 	end
 
 end

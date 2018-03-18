@@ -3,10 +3,6 @@
 -- Tipo: Registro
 -- Observação: Não pode ser incluído ou retirado nenhum campo, pode somente ter suas variáveis alteradas.
 jogo = { nome = "Labirinto de fogo" }
-
-
-
-
 jogador = {}
 -- Tarefa-06
 -- Variável: buracox, buracoy
@@ -46,6 +42,474 @@ function love.load()
 	jogo.x = 10
 
 end
+	-- Tarefa-06
+	-- Variável: "key"
+	-- Tipo: Enum
+	-- Observação: a função "love.keypressed" recebe um valor definido como um Enum, pois faz referência a tecla pressionada pelo usuário (Cada tecla possui um valor "representação")
+function love.keypressed(key)
+
+	--MOVIMENTOS PARA A ESQUERDA
+    	if key == "left" then
+            if (jogador.x > 10) then
+				--PRIMEIRA BARREIRA
+				if (jogador.x == 120) then
+
+					if (jogador.y > 450) then
+						jogador.x = jogador.x - 5	
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+					jogador.x = 10
+					jogador.y = 10
+					fogo:play()
+				end
+				--SEGUNDA BARREIRA
+				elseif (jogador.x == 170) then
+
+					if (jogador.y < 40) then
+						jogador.x = jogador.x - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				--TERCEIRA BARREIRA
+				elseif (jogador.x == 220) then
+
+					if (jogador.y > 200) and (jogador.y < 250) then
+						jogador.x = jogador.x - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				--QUARTRA BARREIRA
+				elseif (jogador.x == 270) then
+
+					if (jogador.y > 30) and (jogador.y < 80) then
+						jogador.x = jogador.x - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				--QUINTA BARREIRA
+				elseif (jogador.x == 320) then
+
+					if (jogador.y > 455) then
+						jogador.x = jogador.x - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				--SEXTA BARREIRA
+				elseif (jogador.x == 370) then
+
+					if (jogador.y < 45) then
+						jogador.x = jogador.x - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+			--SETIMA BARREIRA
+				elseif (jogador.x == 420) then
+
+					if (jogador.y > 35) and (jogador.y < 85) then
+						jogador.x = jogador.x - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				else
+					jogador.x = jogador.x - 5
+					if colisaoburaco() then
+						buracon:play()
+						love.timer.sleep(3)
+						jogador.x = 10
+						jogador.y = 10
+					end
+				end
+			end
+        --MOVIMENTOS PARA A DIREITA
+        elseif key == "right" then
+            if (jogador.x < love.graphics.getWidth( )-20 ) then
+				--PRIMEIRA BARREIRA
+				if (jogador.x == 100) then
+
+					if (jogador.y > 450) then
+						jogador.x = jogador.x + 5
+						passoubarreira:setVolume(0.1)
+						passoubarreira:play()
+						geraquantos()
+						geraburacos(quantos)
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+						jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				--SEGUNDA BARREIRA
+				elseif (jogador.x == 150) then
+
+					if (jogador.y < 40) then
+						jogador.x = jogador.x + 5
+						passoubarreira:setVolume(0.2)
+						passoubarreira:play()
+						geraquantos()
+						geraburacos(quantos)
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+					fogo:play()
+					end	
+				--TERCEIRA BARREIRA
+				elseif (jogador.x == 200) then
+
+					if (jogador.y > 200) and (jogador.y < 250) then
+						jogador.x = jogador.x + 5
+						passoubarreira:setVolume(0.3)
+						passoubarreira:play()
+						geraquantos()
+						geraburacos(quantos)
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						Fogo:play()
+					end
+				--QUARTRA BARREIRA
+				elseif (jogador.x == 250) then
+
+					if (jogador.y > 30) and (jogador.y < 80) then
+						jogador.x = jogador.x + 5
+						passoubarreira:setVolume(0.4)
+						passoubarreira:play()
+						geraquantos()
+						geraburacos(quantos)
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				--QUINTA BARREIRA
+				elseif (jogador.x == 300) then
+
+					if (jogador.y > 455) then
+						jogador.x = jogador.x + 5
+						passoubarreira:setVolume(0.5)
+						passoubarreira:play()
+						geraquantos()
+						geraburacos(quantos)
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				--SEXTA BARREIRA
+				elseif (jogador.x == 350) then
+
+					if (jogador.y < 45) then
+						jogador.x = jogador.x + 5
+						passoubarreira:setVolume(0.6)
+						passoubarreira:play()
+						geraquantos()
+						geraburacos(quantos)
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end					
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				--SETIMA BARREIRA
+				elseif (jogador.x == 400) then
+
+					if (jogador.y > 35) and (jogador.y < 85) then
+						jogador.x = jogador.x + 5
+						passoubarreira:setVolume(0.7)
+						passoubarreira:play()
+						geraquantos()
+						geraburacos(quantos)
+					else
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					end
+				else
+					jogador.x = jogador.x + 5
+					if colisaoburaco() then
+						buracon:play()
+						love.timer.sleep(3)
+						jogador.x = 10
+						jogador.y = 10
+					end
+				end
+			end
+        elseif key == "up" then
+        	if (jogador.y > 10) then
+				--PRIMEIRA BARREIRA
+				if (jogador.y == 450) then
+
+					if (jogador.x > 101) and (jogador.x < 120)  then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+
+					else
+						jogador.y = jogador.y - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end
+				--TERCEIRA BARREIRA
+				elseif (jogador.y == 200) then
+
+					if (jogador.x > 201) and (jogador.x < 220) then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					else
+						jogador.y = jogador.y - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end
+				--QUARTRA BARREIRA
+				elseif (jogador.y == 30) then
+
+					if (jogador.x > 251) and (jogador.x < 270) then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					else
+						jogador.y = jogador.y - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end
+				--QUINTA BARREIRA
+				elseif (jogador.y == 455) then
+
+					if (jogador.x > 301) and (jogador.x < 320)  then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					else
+					jogador.y = jogador.y - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end
+				--SETIMA BARREIRA
+				elseif (jogador.y == 35) then
+
+					if (jogador.x > 401) and (jogador.x < 420) then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					else
+						jogador.y = jogador.y - 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end
+				else
+					jogador.y = jogador.y - 5
+					if colisaoburaco() then
+						buracon:play()	
+						love.timer.sleep(3)
+						jogador.x = 10
+						jogador.y = 10
+					end
+				end
+			end
+        elseif key == "down" then
+            if (jogador.y < love.graphics.getHeight()-20 ) then
+				--SEGUNDA BARREIRA
+				if (jogador.y == 40) then
+
+					if (jogador.x > 151) and (jogador.x < 170)  then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+
+					else
+						jogador.y = jogador.y + 5
+						if colisaoburaco() then
+							buracon:play()	
+							love.timer.sleep(3)	
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end	
+			--TERCEIRA BARREIRA
+				else if (jogador.y == 250) then
+
+					if (jogador.x > 201) and (jogador.x < 220) then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					else
+						jogador.y = jogador.y + 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end
+				--QUARTRA BARREIRA
+				elseif (jogador.y == 80) then
+
+					if (jogador.x > 251) and (jogador.x < 270) then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					else
+						jogador.y = jogador.y + 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+						jogador.y = 10
+						end	
+					end
+				--SEXTA BARREIRA
+				elseif (jogador.y == 35) then
+
+					if (jogador.x > 351) and (jogador.x < 370)  then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					else
+						jogador.y = jogador.y + 5
+						if colisaoburaco() then
+							buracon:play()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end
+				--SETIMA BARREIRA
+				elseif (jogador.y == 75) then
+
+					if (jogador.x > 401) and (jogador.x < 420) then
+						jogador.x = 10
+						jogador.y = 10
+						fogo:play()
+					else
+						jogador.y = jogador.y + 5
+						if colisaoburaco() then
+							buracon:play()
+							musica:pause()
+							love.timer.sleep(3)
+							jogador.x = 10
+							jogador.y = 10
+						end
+					end
+				else
+					jogador.y = jogador.y + 5
+					if colisaoburaco() then
+						buracon:play()
+						love.timer.sleep(3)
+						jogador.x = 10
+						jogador.y = 10
+					end
+				end
+			end	
+		end
+	end
+end
 
 function geraquantos()
 
@@ -71,471 +535,13 @@ function love.update(dt)
 		geraquantos()
 		geraburacos(0)
 	end
+end
 
 	--MOVIMENTOS PARA A DIREITA
-	if love.keyboard.isDown("right") and (jogador.x < love.graphics.getWidth( )-20 ) then
-		--PRIMEIRA BARREIRA
-		if (jogador.x == 100) then
-
-			if (jogador.y > 450) then
-				jogador.x = jogador.x + 5
-				passoubarreira:setVolume(0.1)
-				passoubarreira:play()
-				geraquantos()
-				geraburacos(quantos)
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--SEGUNDA BARREIRA
-		elseif (jogador.x == 150) then
-
-			if (jogador.y < 40) then
-				jogador.x = jogador.x + 5
-				passoubarreira:setVolume(0.2)
-				passoubarreira:play()
-				geraquantos()
-				geraburacos(quantos)
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--TERCEIRA BARREIRA
-		elseif (jogador.x == 200) then
-
-			if (jogador.y > 200) and (jogador.y < 250) then
-				jogador.x = jogador.x + 5
-				passoubarreira:setVolume(0.3)
-				passoubarreira:play()
-				geraquantos()
-				geraburacos(quantos)
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--QUARTRA BARREIRA
-		elseif (jogador.x == 250) then
-
-			if (jogador.y > 30) and (jogador.y < 80) then
-				jogador.x = jogador.x + 5
-				passoubarreira:setVolume(0.4)
-				passoubarreira:play()
-				geraquantos()
-				geraburacos(quantos)
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--QUINTA BARREIRA
-		elseif (jogador.x == 300) then
-
-			if (jogador.y > 455) then
-				jogador.x = jogador.x + 5
-				passoubarreira:setVolume(0.5)
-				passoubarreira:play()
-				geraquantos()
-				geraburacos(quantos)
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--SEXTA BARREIRA
-		elseif (jogador.x == 350) then
-
-			if (jogador.y < 45) then
-				jogador.x = jogador.x + 5
-				passoubarreira:setVolume(0.6)
-				passoubarreira:play()
-				geraquantos()
-				geraburacos(quantos)
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end					
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--SETIMA BARREIRA
-		elseif (jogador.x == 400) then
-
-			if (jogador.y > 35) and (jogador.y < 85) then
-				jogador.x = jogador.x + 5
-				passoubarreira:setVolume(0.7)
-				passoubarreira:play()
-				geraquantos()
-				geraburacos(quantos)
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		else
-			jogador.x = jogador.x + 5
-			if colisaoburaco() then
-				buracon:play()
-				love.timer.sleep(3)
-				jogador.x = 10
-				jogador.y = 10
-			end
-
-		end
-
-	end
-
 	--MOVIMENTOS PARA A ESQUERDA
-	if love.keyboard.isDown("left") and (jogador.x > 10) then
-				--PRIMEIRA BARREIRA
-		if (jogador.x == 120) then
-
-			if (jogador.y > 450) then
-				jogador.x = jogador.x - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--SEGUNDA BARREIRA
-		elseif (jogador.x == 170) then
-
-			if (jogador.y < 40) then
-				jogador.x = jogador.x - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--TERCEIRA BARREIRA
-		elseif (jogador.x == 220) then
-
-			if (jogador.y > 200) and (jogador.y < 250) then
-				jogador.x = jogador.x - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--QUARTRA BARREIRA
-		elseif (jogador.x == 270) then
-
-			if (jogador.y > 30) and (jogador.y < 80) then
-				jogador.x = jogador.x - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--QUINTA BARREIRA
-		elseif (jogador.x == 320) then
-
-			if (jogador.y > 455) then
-				jogador.x = jogador.x - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--SEXTA BARREIRA
-		elseif (jogador.x == 370) then
-
-			if (jogador.y < 45) then
-				jogador.x = jogador.x - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		--SETIMA BARREIRA
-		elseif (jogador.x == 420) then
-
-			if (jogador.y > 35) and (jogador.y < 85) then
-				jogador.x = jogador.x - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			else
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			end
-		else
-			jogador.x = jogador.x - 5
-			if colisaoburaco() then
-				buracon:play()
-				love.timer.sleep(3)
-				jogador.x = 10
-				jogador.y = 10
-			end
-		end
-	end
-
 	--MOVIMENTOS PARA CIMA
-	if love.keyboard.isDown("up") and (jogador.y > 10) then
-		--PRIMEIRA BARREIRA
-			if (jogador.y == 450) then
-
-			if (jogador.x > 101) and (jogador.x < 120)  then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-
-			else
-				jogador.y = jogador.y - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		--TERCEIRA BARREIRA
-		elseif (jogador.y == 200) then
-
-			if (jogador.x > 201) and (jogador.x < 220) then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			else
-				jogador.y = jogador.y - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		--QUARTRA BARREIRA
-		elseif (jogador.y == 30) then
-
-			if (jogador.x > 251) and (jogador.x < 270) then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			else
-				jogador.y = jogador.y - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		--QUINTA BARREIRA
-		elseif (jogador.y == 455) then
-
-			if (jogador.x > 301) and (jogador.x < 320)  then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			else
-				jogador.y = jogador.y - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		--SETIMA BARREIRA
-		elseif (jogador.y == 35) then
-
-			if (jogador.x > 401) and (jogador.x < 420) then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			else
-				jogador.y = jogador.y - 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		else
-			jogador.y = jogador.y - 5
-			if colisaoburaco() then
-				buracon:play()	
-				love.timer.sleep(3)
-				jogador.x = 10
-				jogador.y = 10
-			end
-		end
-	end
-
 	--MOVIMENTOS PARA BAIXO
-	if love.keyboard.isDown("down") and (jogador.y < love.graphics.getHeight()-20 ) then
-		--SEGUNDA BARREIRA
-			if (jogador.y == 40) then
-
-			if (jogador.x > 151) and (jogador.x < 170)  then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-
-			else
-				jogador.y = jogador.y + 5
-				if colisaoburaco() then
-					buracon:play()	
-					love.timer.sleep(3)	
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		--TERCEIRA BARREIRA
-		elseif (jogador.y == 250) then
-
-			if (jogador.x > 201) and (jogador.x < 220) then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			else
-				jogador.y = jogador.y + 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		--QUARTRA BARREIRA
-		elseif (jogador.y == 80) then
-
-			if (jogador.x > 251) and (jogador.x < 270) then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			else
-				jogador.y = jogador.y + 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		--SEXTA BARREIRA
-		elseif (jogador.y == 35) then
-
-			if (jogador.x > 351) and (jogador.x < 370)  then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			else
-				jogador.y = jogador.y + 5
-				if colisaoburaco() then
-					buracon:play()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		--SETIMA BARREIRA
-		elseif (jogador.y == 75) then
-
-			if (jogador.x > 401) and (jogador.x < 420) then
-				jogador.x = 10
-				jogador.y = 10
-				fogo:play()
-			else
-				jogador.y = jogador.y + 5
-				if colisaoburaco() then
-					buracon:play()
-					musica:pause()
-					love.timer.sleep(3)
-					jogador.x = 10
-					jogador.y = 10
-				end
-			end
-		else
-			jogador.y = jogador.y + 5
-			if colisaoburaco() then
-				buracon:play()
-				love.timer.sleep(3)
-				jogador.x = 10
-				jogador.y = 10
-			end
-		end
-
-	end	
-end
+	
 
 	function mostraburaco(buracox,buracoy)
 
@@ -561,20 +567,14 @@ end
 	end
 
 	function colisaoburaco()
-		-- Tarefa-06
-		-- Variável: entrouburaco
-		-- Tipo: Enum
-		-- Observação: Assume o papel de "enumerador", por apresentar uma quantidade limitada e fixa de valores. (Usado somente para simular o ENUM em lua, mesmo sem necessidade)
-		entrouburaco = "true"
 		local i = 0
 		while i < quantos do
 			if  (jogador.x >= buracox[i]-15) and (jogador.x <= buracox[i]+5)
 			and (jogador.y>= buracoy[i]-15) and (jogador.y <= buracoy[i]+5) then
-				return entrouburaco
+				return true
 			end
 			i= i+1;
 		end
-		i= i+1;
 	end 
 
 

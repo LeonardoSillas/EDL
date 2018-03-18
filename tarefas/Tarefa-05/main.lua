@@ -571,9 +571,9 @@ end
 		while i < quantos do
 		-- Tarefa 05
 		-- Nome: 'buracox[]'
-		-- Propriedade: Vetor dinâmico
+		-- Propriedade: Tamanho do vetor
 		-- Binding time: execução
-		-- Explicação: é um vetor que terá tamanho e valores definidos em tempo de execução.
+		-- Explicação: Terá tamanho e valores definidos em tempo de execução.
 			buracox[i] = math.random(jogador.x +5, jogador.x + 100) 
 			buracoy[i] = math.random(10, love.graphics.getHeight()-15)
 			i = i+1;

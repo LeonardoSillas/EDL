@@ -22,12 +22,12 @@ function love.load()
 
 	--Tarefa 05
 	--Nome: jogador.x, jogador.y
-	--Propriedade: valor de x e y, do objeto jogador
+	--Propriedade: valor de x e y, do objeto jogador.
 	--Binding Time: Compilação
 	--Explicação: será a valor inicial da variável assim que o programa for executado.
 
 	--Nome: jogador.width, jogador.height
-	--Propriedade: variáveis usadas para definir o tamanho do "boneco"
+	--Propriedade: valor das variáveis globais.
 	--Binding Time: Compilação
 	--Explicação: será a tamanho estático do boneco assim que o programa for executado.
 
@@ -569,6 +569,11 @@ end
 		-- Explicação: Por ser uma variável local, possui suas propriedades (endereço) alocado em tempo de execução.
 		local i = 0
 		while i < quantos do
+		-- Tarefa 05
+		-- Nome: 'buracox[]'
+		-- Propriedade: Vetor dinâmico
+		-- Binding time: execução
+		-- Explicação: é um vetor que terá tamanho e valores definidos em tempo de execução.
 			buracox[i] = math.random(jogador.x +5, jogador.x + 100) 
 			buracoy[i] = math.random(10, love.graphics.getHeight()-15)
 			i = i+1;
@@ -592,7 +597,7 @@ end
 
 
 function love.draw()
-	local show = 0
+	local i = 0
 	--FUNDO DA TELA
 
 	love.graphics.setColor(0,0,100)
@@ -632,14 +637,9 @@ function love.draw()
 	love.graphics.draw(boneco,jogador.x,jogador.y)
 
 	--BURACOS
-		-- Tarefa 05
-		-- Nome: 'i'
-		-- Propriedade: Variável local
-		-- Binding time: execução
-		-- Explicação: Por ser uma variável local, possui suas propriedades (endereço) alocado em tempo de execução.
 	while show < quantos do
 	mostraburaco(buracox[show],buracoy[show])
-	show = show+1;
+	i = i+1;
 	end
 
 end

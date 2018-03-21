@@ -25,7 +25,7 @@ function new(x,y)
 end
 
 
-function novo(x,y)
+function novo(x,y,vx)
 	local me = 
 		{
 		move = function (dx,dy)
@@ -38,9 +38,9 @@ function novo(x,y)
 			end,
 --Tarefa 08
 --Descrição: corotina de movimentação da caixa "Bonus"  		
-		coVoa = coroutine.create(function(dt)
+		co = coroutine.create(function(dt)
       		while true do
-      			me.move(5,0)
+      			me.move(vx*dt,0)
       			coroutine.yield()
       		end
     	end),
@@ -51,7 +51,7 @@ end
 --Tarefa 08
 --Descrição: Objeto criado a partir da chamada New, podendo utilizar as closures.
 local jogador = new(10,10)
-local bonus = novo(10,10)
+local bonus = novo(10,10,100)
 
 function love.load()
 	--SOM
@@ -100,7 +100,7 @@ function love.update(dt)
 	local jogadorx,jogadory = jogador.get()
 	----Tarefa 08
 	--Descrição:Resume na corotina de vôo
-	coroutine.resume(bonus.coVoa)
+	coroutine.resume(bonus.co,dt)
 
     --CHEGOU NA LINHA DE CHEGADA!
 	if (jogadorx >= love.graphics.getWidth( )-50) and (jogadory >= love.graphics.getHeight( )-57)	then
@@ -659,7 +659,8 @@ function love.draw()
 	love.graphics.draw(background,10,10)
 	--caixa
 	love.graphics.setColor(255,255,255)
-	love.graphics.draw(bonus.imagem, a, b)
+	love.graphics.rectangle('fill', a,b, 20,20)
+	--love.graphics.draw(bonus.imagem, a, b)
 
 
 	--CONTORNO DO MAPA

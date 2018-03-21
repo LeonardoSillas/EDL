@@ -1,4 +1,4 @@
-jogo = { nome = "Labirinto de fogo" }
+﻿jogo = { nome = "Labirinto de fogo" }
 buracox = {}
 buracoy = {}
 
@@ -34,35 +34,36 @@ function novo (x,y,vx)
         get = function ()
              return x, y
         end,
-        coDireita = coroutine.create(function (dt)
+        coMove = coroutine.create(function (dt)
             while true do
-               	me.move( vx*dt, 0)
-               	dt = coroutine.yield()
-            end
-        end),
-        coEsquerda = coroutine.create(function (dt)
-            while true do
-               	me.move( -1*vx*dt, 0)
-               	dt = coroutine.yield()
-            end
-        end),
-        coBaixo = coroutine.create(function (dt)
-            while true do
-               	me.move( 0, vx*dt)
-               	dt = coroutine.yield()
-            end
-        end),
-        coCima = coroutine.create(function (dt)
-            while true do
-               	me.move( 0, -1*vx*dt)
-               	dt = coroutine.yield()
-            end
-        end)
+            	for i = 1, 460 do
+	     		me.move(vx*dt,0)
+			dt = coroutine.yield()
+	        end
+
+	        for i = 1, 980 do
+	          me.move(0, vx*dt)
+	          dt = coroutine.yield()
+	        end
+
+	        for i = 1, 460 do
+	          me.move(-vx*dt, 0)
+	          dt = coroutine.yield()
+	        end
+
+	        for i = 1, 980 do
+	          me.move(0, -vx*dt)
+	          dt = coroutine.yield()
+	        end
+	      end
+	end)
     }
     return me
 end
 
 local jogador = new(10,10)
+
+--Variáveis da "caixa Bonus" (posição inicial(x,y,_) e velocidade (_,_,z)
 local bonus = novo(10,10,25)
 
 function love.load()
@@ -112,36 +113,10 @@ function love.update(dt)
 	--Tarefa 08
 	--Descrição: Inserindo em jogadorx e jogadory os valores retornados na função Get relacionada ao objeto jogador.
 	local jogadorx,jogadory = jogador.get()
-	local bonusa,bonusb = bonus.get()
-	if direcao == 'direita' then
-	coroutine.resume(bonus.coDireita, dt)
-	end
 
-	if direcao == 'esquerda' then
-	coroutine.resume(bonus.coEsquerda, dt)
-	end
-
-	if bonusa >= 205 then
-		direcao ='esquerda'
-	end
-	if bonusa <= 10 then
-		direcao ='direita'
-	end
-
-	if horizonte == 'baixo' then
-	coroutine.resume(bonus.coBaixo, dt)
-	end
-
-	if horizonte == 'cima' then
-	coroutine.resume(bonus.coCima, dt)
-	end
-
-	if bonusb >= 420 then
-		horizonte ='cima'
-	end
-	if bonusb <= 10 then
-		horizonte ='baixo'
-	end
+	--Tarefa 08
+	--Descrição: Resume da corotina de movimentação
+	coroutine.resume(bonus.coMove, dt)
 
 
     --CHEGOU NA LINHA DE CHEGADA!

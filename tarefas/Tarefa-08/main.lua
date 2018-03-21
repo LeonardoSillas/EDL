@@ -25,10 +25,33 @@ function new(x,y)
 end
 
 
+function novo(x,y)
+	local me = 
+		{
+		move = function (dx,dy)
+					x = x + dx
+					y = y + dy
+					return x,y
+				end,
+		get = function ()
+			return x,y
+			end,
+--Tarefa 08
+--Descrição: corotina de movimentação da caixa "Bonus"  		
+		coVoa = coroutine.create(function(dt)
+      		while true do
+      			me.move(5,0)
+      			coroutine.yield()
+      		end
+    	end),
+		}
+	return me
+end
 
 --Tarefa 08
 --Descrição: Objeto criado a partir da chamada New, podendo utilizar as closures.
 local jogador = new(10,10)
+local bonus = novo(10,10)
 
 function love.load()
 	--SOM
@@ -54,6 +77,9 @@ function love.load()
 	quantos = 0
 	jogo.x = 10
 
+	--BONUS
+	bonus.imagem = love.graphics.newImage('imagens/bonus.png')
+
 end
 function limpaburacos()
 	for i = #buracox, 1, -1 do
@@ -72,6 +98,10 @@ function love.update(dt)
 	--Tarefa 08
 	--Descrição: Inserindo em jogadorx e jogadory os valores retornados na função Get relacionada ao objeto jogador.
 	local jogadorx,jogadory = jogador.get()
+	----Tarefa 08
+	--Descrição:Resume na corotina de vôo
+	coroutine.resume(bonus.coVoa)
+
     --CHEGOU NA LINHA DE CHEGADA!
 	if (jogadorx >= love.graphics.getWidth( )-50) and (jogadory >= love.graphics.getHeight( )-57)	then
 		musica:stop()
@@ -89,12 +119,10 @@ function love.update(dt)
 		limpaburacos()
 	end
 
-
 	--MOVIMENTOS PARA A DIREITA
 	if love.keyboard.isDown("right") and (jogadorx < love.graphics.getWidth( )-20 ) then
 		--PRIMEIRA BARREIRA
 		if (jogadorx == 100) then
-
 			if (jogadory > 450) then
 				--Tarefa 08
 				--Descrição: atualizando somente o valor de x do objeto através da função move() pois só atribui valor ao dx
@@ -580,7 +608,6 @@ function love.update(dt)
 				jogador.reinicia()
 			end
 		end
-
 	end	
 end
 
@@ -625,11 +652,16 @@ end
 
 function love.draw()
 	local i = 0
+	local a,b = bonus.get()
 	--FUNDO DA TELA
 
 	love.graphics.setColor(0,0,100)
 	love.graphics.draw(background,10,10)
-	
+	--caixa
+	love.graphics.setColor(255,255,255)
+	love.graphics.draw(bonus.imagem, a, b)
+
+
 	--CONTORNO DO MAPA
 	love.graphics.setColor(0,0,100)
 	love.graphics.rectangle("fill",0,0,10,love.graphics.getWidth( ))
@@ -663,10 +695,6 @@ function love.draw()
 	--BONECO
 	local jogadorx,jogadory = jogador.get()
 	love.graphics.draw(boneco,jogadorx,jogadory)
-
-	--NOME DO JOGO
-	love.graphics.setColor(255,255,0)
-	love.graphics.print(jogo.nome,10,10)
 
 	--BURACOS
 	for i = #buracox, 1, -1 do

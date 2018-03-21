@@ -24,34 +24,46 @@ function new(x,y)
 	return me
 end
 
-
-function novo(x,y,vx)
-	local me = 
-		{
-		move = function (dx,dy)
-					x = x + dx
-					y = y + dy
-					return x,y
-				end,
-		get = function ()
-			return x,y
-			end,
---Tarefa 08
---Descrição: corotina de movimentação da caixa "Bonus"  		
-		co = coroutine.create(function(dt)
-      		while true do
-      			me.move(vx*dt,0)
-      			coroutine.yield()
-      		end
-    	end),
-		}
-	return me
+function novo (x,y,vx)
+    local me; me = {
+        move = function (dx,dy)
+             x = x + dx
+             y = y + dy
+             return x, y
+        end,
+        get = function ()
+             return x, y
+        end,
+        coDireita = coroutine.create(function (dt)
+            while true do
+               	me.move( vx*dt, 0)
+               	dt = coroutine.yield()
+            end
+        end),
+        coEsquerda = coroutine.create(function (dt)
+            while true do
+               	me.move( -1*vx*dt, 0)
+               	dt = coroutine.yield()
+            end
+        end),
+        coBaixo = coroutine.create(function (dt)
+            while true do
+               	me.move( 0, vx*dt)
+               	dt = coroutine.yield()
+            end
+        end),
+        coCima = coroutine.create(function (dt)
+            while true do
+               	me.move( 0, -1*vx*dt)
+               	dt = coroutine.yield()
+            end
+        end)
+    }
+    return me
 end
 
---Tarefa 08
---Descrição: Objeto criado a partir da chamada New, podendo utilizar as closures.
 local jogador = new(10,10)
-local bonus = novo(10,10,100)
+local bonus = novo(10,10,25)
 
 function love.load()
 	--SOM
@@ -76,9 +88,11 @@ function love.load()
 	boneco = love.graphics.newImage("imagens/Boneco.png")
 	quantos = 0
 	jogo.x = 10
+	direcao = 'direita'
+	horizonte = 'baixo'
 
 	--BONUS
-	bonus.imagem = love.graphics.newImage('imagens/bonus.png')
+	bonusimagem = love.graphics.newImage('imagens/bonus.png')
 
 end
 function limpaburacos()
@@ -98,9 +112,37 @@ function love.update(dt)
 	--Tarefa 08
 	--Descrição: Inserindo em jogadorx e jogadory os valores retornados na função Get relacionada ao objeto jogador.
 	local jogadorx,jogadory = jogador.get()
-	----Tarefa 08
-	--Descrição:Resume na corotina de vôo
-	coroutine.resume(bonus.co,dt)
+	local bonusa,bonusb = bonus.get()
+	if direcao == 'direita' then
+	coroutine.resume(bonus.coDireita, dt)
+	end
+
+	if direcao == 'esquerda' then
+	coroutine.resume(bonus.coEsquerda, dt)
+	end
+
+	if bonusa >= 205 then
+		direcao ='esquerda'
+	end
+	if bonusa <= 10 then
+		direcao ='direita'
+	end
+
+	if horizonte == 'baixo' then
+	coroutine.resume(bonus.coBaixo, dt)
+	end
+
+	if horizonte == 'cima' then
+	coroutine.resume(bonus.coCima, dt)
+	end
+
+	if bonusb >= 420 then
+		horizonte ='cima'
+	end
+	if bonusb <= 10 then
+		horizonte ='baixo'
+	end
+
 
     --CHEGOU NA LINHA DE CHEGADA!
 	if (jogadorx >= love.graphics.getWidth( )-50) and (jogadory >= love.graphics.getHeight( )-57)	then
@@ -652,16 +694,13 @@ end
 
 function love.draw()
 	local i = 0
-	local a,b = bonus.get()
 	--FUNDO DA TELA
-
 	love.graphics.setColor(0,0,100)
 	love.graphics.draw(background,10,10)
 	--caixa
-	love.graphics.setColor(255,255,255)
-	love.graphics.rectangle('fill', a,b, 20,20)
-	--love.graphics.draw(bonus.imagem, a, b)
-
+	local a,b = bonus.get()
+	love.graphics.setColor(255,255,0)
+	love.graphics.draw(bonusimagem,a,b)
 
 	--CONTORNO DO MAPA
 	love.graphics.setColor(0,0,100)
